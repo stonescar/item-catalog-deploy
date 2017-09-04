@@ -5,7 +5,6 @@ from sqlalchemy import (Column, Integer, String, DateTime,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
-import os
 
 Base = declarative_base()
 
@@ -62,13 +61,5 @@ class Item(Base):
         }
 
 
-engine = create_engine('sqlite:///itemcatalog.db')
+engine = create_engine('postgresql://catalog:items@localhost:5432/itemcatalog')
 Base.metadata.bind = engine
-
-if __name__ == '__main__':
-    # Create database in project's root directory
-    dir = os.path.dirname(os.path.realpath(__file__)).split('/')
-    root = '/'.join(dir[:len(dir)-2])
-
-    engine = create_engine('sqlite:///%s/itemcatalog.db' % root)
-    Base.metadata.create_all(engine)
