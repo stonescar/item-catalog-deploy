@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Item Catalog App</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-social.css') }}">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <div class="container">
+        {% include "navbar.html" %}
+        <div class="row">
+            <div class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3">
+                {% include "flash.html" %}
+
+
+                <div class="jumbotron text-center">
+                    <h3>Log in</h3>
+                    <div class="btn-group-vertical" role="group">
+                        <button class="btn btn-lg btn-social btn-facebook">
+                            <span class="fa fa-facebook"></span> Log in with Facebook
+                        </button> 
+                        <div class="btn btn-lg btn-social btn-google">
+                            <span class="fa fa-google"></span> Log in with Google
+                        </div> 
+                        <button class="btn btn-lg btn-social btn-github" onclick="window.location='https://github.com/login/oauth/authorize?client_id=e5d63ee2e50fc77b5eb7&scope=user:email&state={{STATE}}'">
+                            <span class="fa fa-github"></span> Log in with GitHub
+                        </button>
+                        
+                    </div><br><br>
+
+                    <div id="result"></div>
+                </div>
+
+
+            </div>
+            <div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9">
+                {% include "categorylist.html" %}
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Facebook login
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '769063566604438',
+                cookie     : true,  // enable cookies to allow the server to access 
+                                    // the session
+                xfbml      : true,  // parse social plugins on this page
+                version    : 'v2.8' // use version 2.8
+            });
+        };
+        //FB-button event listener
+        $('.btn-facebook').click(function() {
+            FB.login(function(response) {
+                sendTokenToServer()
+            }, {scope: 'email,public_profile', return_scopes: true})
+        });
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        // Here we run a very simple test of the Graph API after login is
+        // successful.  See statusChangeCallback() for when this call is made.
+        function sendTokenToServer() {
+            var access_token = FB.getAuthResponse()['accessToken'];
+            console.log(access_token)
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+                console.log('Successful login for: ' + response.name);
+               $.ajax({
+                    type: 'POST',
+                    url: '/fbconnect?state={{STATE}}',
+                    processData: false,
+                    data: access_token,
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function(result) {
+                        // Handle or verify the server response if necessary.
+                        if (result) {
+                            window.location.href = "/";                  
+                        } else {
+                            $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                        }
+                    }
+              
+                });
+            });
+        }
+
+        // Google login
+        function signInCallback(authResult) {
+            if (authResult['code']) {
+                $('#signinButton').hide()
+                $.ajax({
+                    type: 'POST',
+                    url: '/gconnect?state={{STATE}}',
+                    processData: false,
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    data: authResult['code'],
+                    success: function(result) {
+                        if (result) {
+                            window.location='/'; 
+                        } else if (authResult['error']) {
+                            console.log('There was an error: ' + authResult['error'])
+                        } else {
+                            $('#result').html('Failed to make a server-side call. Check your configuration and console')
+                        }
+                    }
+                })
+            }
+        }
+        // Google-button event listener
+        $('.btn-google').click(function() {
+            var myParams = {
+                'clientid': '412504806902-68lg5vel0upq16i34h30o58m4e419c9r.apps.googleusercontent.com',
+                'cookiepolicy': 'single_host_origin',
+                'approvalprompt': 'force',
+                'callback': 'signInCallback',
+                'scope': 'openid email',
+                'redirecturis': 'postmessage',
+                'accesstype': 'offline'
+            };
+            gapi.auth.signIn(myParams);
+        });
+    </script>
+
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/func.js') }}"></script>
+  </body>
+</html>
