@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+.vagrant
+itemcatalog.db
+*.db
+ignored/*
+catalog/ignored
+test.py
+static/font-awesome/.DS_Store
+.DS_Store
+Vagrantfile
+pg_config.sh
