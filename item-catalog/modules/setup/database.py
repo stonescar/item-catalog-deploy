@@ -62,4 +62,5 @@ class Item(Base):
 
 
 engine = create_engine('postgresql://catalog:items@localhost:5432/itemcatalog')
+Base.metadata.create_all(engine)
 Base.metadata.bind = engine
