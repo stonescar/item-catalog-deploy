@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from modules.setup.app import app
+from catalog.modules.setup.app import app
 
 
 if __name__ == '__main__':

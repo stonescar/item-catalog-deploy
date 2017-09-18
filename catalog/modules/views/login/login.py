@@ -1,5 +1,5 @@
-from modules.setup.app import app
-from modules import helpers
+from catalog.modules.setup.app import app
+from catalog.modules import helpers
 from flask import render_template, session as login_session
 
 
