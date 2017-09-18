@@ -1,6 +1,6 @@
-from catalog.modules.setup.app import app, session
-from catalog.modules.setup.database import Item
-from catalog.modules import helpers
+from modules.setup.app import app, session
+from modules.setup.database import Item
+from modules import helpers
 from flask import jsonify
 
 

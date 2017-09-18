@@ -1,5 +1,5 @@
-from catalog.modules.setup.app import app, session
-from catalog.modules import helpers
+from modules.setup.app import app, session
+from modules import helpers
 from flask import render_template, redirect, url_for, request, flash
 
 

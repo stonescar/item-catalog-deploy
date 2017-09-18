@@ -1,5 +1,5 @@
-from catalog.modules.setup.app import app, session
-from catalog.modules.setup.database import Category, Item
+from modules.setup.app import app, session
+from modules.setup.database import Category, Item
 from flask import jsonify
 
 

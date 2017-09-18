@@ -1,6 +1,6 @@
-from catalog.modules.setup.app import app, session
-from catalog.modules.setup.database import Category
-from catalog.modules import helpers
+from modules.setup.app import app, session
+from modules.setup.database import Category
+from modules import helpers
 from flask import (render_template, request, flash, redirect,
                    url_for, session as login_session)
 

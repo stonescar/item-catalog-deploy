@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from catalog.modules.setup.app import app, session
-from catalog.modules.setup.database import Category, Item, User
+from modules.setup.app import app, session
+from modules.setup.database import Category, Item, User
 from functools import wraps
 from flask import flash, redirect, url_for, request, session as login_session
 import random
 import string
-import os
 
 
 def category_exists(f):

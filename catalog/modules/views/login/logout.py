@@ -1,5 +1,5 @@
-from catalog.modules.setup.app import app
-from catalog.modules.views.login import facebook, google, github
+from modules.setup.app import app
+from modules.views.login import facebook, google, github
 from flask import redirect, url_for, flash, session as login_session
 
 
