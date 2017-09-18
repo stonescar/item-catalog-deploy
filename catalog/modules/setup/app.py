@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from database import engine
 
 
-app = Flask('item-catalog')
+app = Flask(__name__)
 
 DBsession = sessionmaker(bind=engine)
 session = DBsession()

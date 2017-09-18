@@ -10,7 +10,7 @@ import sys
 
 ROOT_DIR = os.path.dirname(sys.modules['__main__'].__file__)
 client_secret_path = os.path.join(
-    ROOT_DIR, 'client_secrets/g_client_secrets.json')
+    ROOT_DIR, 'catalog/client_secrets/g_client_secrets.json')
 
 
 @app.route('/gconnect', methods=['POST'])

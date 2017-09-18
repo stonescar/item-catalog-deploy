@@ -9,4 +9,4 @@ from catalog import app as application
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0, "/var/www/itemCatalog/")
 
-application.secret_key = 'supersecretkey'
+application.secret_key = 'items'
