@@ -1,7 +1,7 @@
-from modules.setup.app import app, session
-from modules.setup.database import Item
-from modules import helpers
-from modules import get_image
+from catalog.modules.setup.app import app, session
+from catalog.modules.setup.database import Item
+from catalog.modules import helpers
+from catalog.modules import get_image
 from flask import (render_template, redirect, url_for, request,
                    flash, session as login_session)
 
