@@ -3,12 +3,8 @@ from catalog.modules import helpers
 from flask import request, make_response, flash, session as login_session
 import json
 import httplib2
-import os
-import sys
 
-ROOT_DIR = os.path.dirname(sys.modules['__main__'].__file__)
-client_secret_path = os.path.join(
-    ROOT_DIR, 'catalog/client_secrets/fb_client_secrets.json')
+client_secret_path = '/var/www/itemCatalog/catalog/client_secrets/fb_client_secrets.json'  # NOQA
 
 
 @app.route('/fbconnect', methods=['POST'])

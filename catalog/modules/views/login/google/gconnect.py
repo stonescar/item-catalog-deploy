@@ -5,12 +5,8 @@ from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 import json
 import httplib2
 import requests
-import os
-import sys
 
-ROOT_DIR = os.path.dirname(sys.modules['__main__'].__file__)
-client_secret_path = os.path.join(
-    ROOT_DIR, 'catalog/client_secrets/g_client_secrets.json')
+client_secret_path = '/var/www/itemCatalog/catalog/client_secrets/g_client_secrets.json'  # NOQA
 
 
 @app.route('/gconnect', methods=['POST'])
