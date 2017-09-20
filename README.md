@@ -2,7 +2,7 @@
 
 Deployment version of the [Item Catalog App](https://github.com/stonescar/item-catalog). Project 5 for my Full Stack Nanodegree at [udacity.com](http://udacity.com). The project is hosted on a Lightsail Ubuntu server from [Amazon Web Services](https://lightsail.aws.amazon.com/)
 
-**The project is live at [http://35.158.71.73/](http://35.158.71.73/)**
+**The project is live at [http://35.158.71.73/](http://35.158.71.73/) (SSH-port: 2200)**
 
 ## Installed software
 - [Apache2](https://httpd.apache.org/) w/ mod_wsgi
